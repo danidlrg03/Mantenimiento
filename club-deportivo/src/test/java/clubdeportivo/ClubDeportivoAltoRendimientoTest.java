@@ -1,3 +1,4 @@
+// @author Pablo Alonso Burgos & Daniel de los Ríos García
 package clubdeportivo;
 
 import org.junit.jupiter.api.BeforeEach;
