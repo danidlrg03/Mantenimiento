@@ -15,6 +15,7 @@ public class DoubleLinkedListTest {
     @Nested
     @DisplayName("Test para el método prepend()")
     class PrependTests {
+        
         @Test
         @DisplayName("Debe agregar un elemento al inicio de la cola vacía")
         void shouldAddElementToEmptyQueue() {
@@ -25,17 +26,18 @@ public class DoubleLinkedListTest {
             assertEquals("Hola", queue.last());
         }
 
-      @Test
+        @Test
         @DisplayName("Debe agregar un elemento al inicio de la cola no vacía")
         void shouldAddElementToNonEmptyQueue() {
             DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
-            queue.append(1);
-            queue.append(2);
             queue.prepend(3);
+            queue.prepend(2);
+            queue.prepend(1);
             assertEquals(3, queue.size());
-            assertEquals(3, queue.first().intValue());
-            assertEquals(2, queue.last().intValue());
-        } 
+            assertEquals(1, queue.first());
+            assertEquals(3, queue.last());
+        }
+      
     }
 
     @Nested
@@ -59,8 +61,8 @@ public class DoubleLinkedListTest {
             queue.append(2);
             queue.append(3);
             assertEquals(3, queue.size());
-            assertEquals(1, queue.first().intValue());
-            assertEquals(3, queue.last().intValue());
+            assertEquals(1, queue.first());
+            assertEquals(3, queue.last());
         }
     }
 
@@ -75,15 +77,21 @@ public class DoubleLinkedListTest {
             assertThrows(DoubleLinkedQueueException.class, queue::deleteFirst);
         }
 
-      @Test
+        @Test
         @DisplayName("Debe eliminar el primer elemento de una cola de un solo elemento")
         void shouldDeleteElementFromSingleElementQueue() {
-            DoubleLinkedList<String> queue = new DoubleLinkedList<>();
-            queue.append("Hola");
+            DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
+            queue.append(1);            
+            assertEquals(1, queue.size());
+            
             queue.deleteFirst();
+            assertEquals(0, queue.size());
+
             assertTrue(queue.isEmpty());
-            assertEquals(queue.size(), 0);
-        }
+        } 
+
+        
+
 
         @Test
         @DisplayName("Debe eliminar el primer elemento de una cola con múltiples elementos")
@@ -96,8 +104,8 @@ public class DoubleLinkedListTest {
             queue.deleteFirst();
 
             assertEquals(2, queue.size());
-            assertEquals(2, queue.first().intValue());
-            assertEquals(3, queue.last().intValue());
+            assertEquals(2, queue.first());
+            assertEquals(3, queue.last());
         }
     }
 
@@ -112,14 +120,18 @@ public class DoubleLinkedListTest {
             assertThrows(DoubleLinkedQueueException.class, queue::deleteLast);
         }
 
-    @Test
+         @Test
         @DisplayName("Debe eliminar el último elemento de una cola de un solo elemento")
         void shouldDeleteElementFromSingleElementQueue() {
-            DoubleLinkedList<String> queue = new DoubleLinkedList<>();
-            queue.append("Hola");
+            DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
+            queue.append(1);            
+            assertEquals(1, queue.size());
+            
             queue.deleteLast();
+            assertEquals(0, queue.size());
+
             assertTrue(queue.isEmpty());
-        }
+        } 
 
         @Test
         @DisplayName("Debe eliminar el último elemento de una cola con múltiples elementos")
@@ -132,8 +144,8 @@ public class DoubleLinkedListTest {
             queue.deleteLast();
 
             assertEquals(2, queue.size());
-            assertEquals(1, queue.first().intValue());
-            assertEquals(2, queue.last().intValue());
+            assertEquals(1, queue.first());
+            assertEquals(2, queue.last());
         }
     }
 
@@ -240,8 +252,26 @@ public class DoubleLinkedListTest {
         void shouldReturnEmptyQueueForEmptyOriginalQueue() {
             DoubleLinkedList<Object> queue = new DoubleLinkedList<>();
             DoubleLinkedList<Object> newQueue = queue.removeDuplicates();
-
             assertTrue(newQueue.isEmpty());
         }
+        @Test
+        @DisplayName("Debe devolver una cola vacía si la cola original está vacía")
+        void testRemoveDuplicatesOriginal() {
+            DoubleLinkedList<Object> queue = new DoubleLinkedList<>();
+            queue.append(1);
+            queue.append(2);
+            DoubleLinkedList<Object> newQueue = queue.removeDuplicates();
+            assertEquals(queue.size(), newQueue.size());
+        }
+        @Test
+        @DisplayName("Debe devolver una cola vacía si la cola original está vacía")
+        void testRemoveDuplicatesNotOriginal() {
+            DoubleLinkedList<Object> queue = new DoubleLinkedList<>();
+            queue.append(1);
+            queue.append(1);
+            DoubleLinkedList<Object> newQueue = queue.removeDuplicates();
+            assertNotEquals(queue.size(), newQueue.size());
+        }
     }
+
 }

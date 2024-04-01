@@ -7,50 +7,50 @@ package org.mps.deque;
  *
  * @param <T> the type of elements held in the deque.
  */
-class LinkedNode<T> {
+public class LinkedNode<T> {
     private T item;
     private LinkedNode<T> previous;
     private LinkedNode<T> next;
 
-    LinkedNode(T item, LinkedNode<T> previous, LinkedNode<T> next) {
+    public LinkedNode(T item, LinkedNode<T> previous, LinkedNode<T> next) {
         this.item = item;
         this.previous = previous;
         this.next = next;
     }
 
-    T getItem() {
+    public T getItem() {
         return item;
     }
 
-    void setItem(T item) {
+    public void setItem(T item) {
         this.item = item;
     }
 
-    LinkedNode<T> getPrevious() {
+    public LinkedNode<T> getPrevious() {
         return previous;
     }
 
-    void setPrevious(LinkedNode<T> previous) {
+    public void setPrevious(LinkedNode<T> previous) {
         this.previous = previous;
     }
 
-    LinkedNode<T> getNext() {
+    public LinkedNode<T> getNext() {
         return next;
     }
 
-    void setNext(LinkedNode<T> next) {
+    public void setNext(LinkedNode<T> next) {
         this.next = next;
     }
 
-    boolean isFirstNode() {
+    public boolean isFirstNode() {
         return previous == null;
     }
 
-    boolean isLastNode() {
+    public boolean isLastNode() {
         return next == null;
     }
 
-    boolean isNotATerminalNode() {
+    public boolean isNotATerminalNode() {
         return !(isFirstNode() || isLastNode());
     }
 }
