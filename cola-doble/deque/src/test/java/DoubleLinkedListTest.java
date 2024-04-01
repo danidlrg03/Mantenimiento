@@ -5,6 +5,8 @@ import org.mps.deque.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Comparator;
+
 public class DoubleLinkedListTest {
 
     @Nested
@@ -272,4 +274,60 @@ public class DoubleLinkedListTest {
             assertNotEquals(queue.size(), newQueue.size());
         }
     }
+
+    @Nested
+    @DisplayName("New operations tests")
+    class NewOperationsTests {
+    
+        @Test
+        @DisplayName("Should accurately return an element at a specific index")
+        void shouldReturnElementAtIndex() {
+            DoubleLinkedList<String> list = new DoubleLinkedList<>();
+            list.append("First");
+            list.append("Second");
+            list.append("Third");
+    
+            assertEquals("Second", list.get(1));
+        }
+    
+        @Test
+        @DisplayName("Should correctly identify if a value is contained")
+        void shouldIdentifyContainedValue() {
+            DoubleLinkedList<String> list = new DoubleLinkedList<>();
+            list.append("Hello");
+            list.append("World");
+    
+            assertTrue(list.contains("Hello"));
+            assertFalse(list.contains("Test"));
+        }
+    
+        @Test
+        @DisplayName("Should remove a specific value correctly")
+        void shouldRemoveValue() {
+            DoubleLinkedList<String> list = new DoubleLinkedList<>();
+            list.append("First");
+            list.append("Second");
+            list.append("Third");
+            list.remove("Second");
+    
+            assertEquals(2, list.size());
+            assertFalse(list.contains("Second"));
+        }
+    
+        @Test
+        @DisplayName("Should sort the list according to the provided comparator")
+        void shouldSortList() {
+            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+            list.append(3);
+            list.append(1);
+            list.append(2);
+    
+            list.sort(Comparator.naturalOrder());
+    
+            assertEquals(Integer.valueOf(1), list.get(0));
+            assertEquals(Integer.valueOf(2), list.get(1));
+            assertEquals(Integer.valueOf(3), list.get(2));
+        }
+    }
+
 }
