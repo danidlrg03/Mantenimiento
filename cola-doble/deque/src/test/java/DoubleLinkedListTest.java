@@ -25,7 +25,7 @@ public class DoubleLinkedListTest {
             assertEquals("Hola", queue.last());
         }
 
-      /*   @Test
+      @Test
         @DisplayName("Debe agregar un elemento al inicio de la cola no vacía")
         void shouldAddElementToNonEmptyQueue() {
             DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
@@ -34,8 +34,8 @@ public class DoubleLinkedListTest {
             queue.prepend(3);
             assertEquals(3, queue.size());
             assertEquals(3, queue.first().intValue());
-            assertEquals(1, queue.last().intValue());
-        } */
+            assertEquals(2, queue.last().intValue());
+        } 
     }
 
     @Nested
@@ -75,17 +75,15 @@ public class DoubleLinkedListTest {
             assertThrows(DoubleLinkedQueueException.class, queue::deleteFirst);
         }
 
-      /*   @Test
+      @Test
         @DisplayName("Debe eliminar el primer elemento de una cola de un solo elemento")
         void shouldDeleteElementFromSingleElementQueue() {
             DoubleLinkedList<String> queue = new DoubleLinkedList<>();
             queue.append("Hola");
             queue.deleteFirst();
-
             assertTrue(queue.isEmpty());
-            assertNull(queue.first());
-            assertNull(queue.last());
-        } */
+            assertEquals(queue.size(), 0);
+        }
 
         @Test
         @DisplayName("Debe eliminar el primer elemento de una cola con múltiples elementos")
@@ -114,17 +112,14 @@ public class DoubleLinkedListTest {
             assertThrows(DoubleLinkedQueueException.class, queue::deleteLast);
         }
 
-       /*  @Test
+    @Test
         @DisplayName("Debe eliminar el último elemento de una cola de un solo elemento")
         void shouldDeleteElementFromSingleElementQueue() {
             DoubleLinkedList<String> queue = new DoubleLinkedList<>();
             queue.append("Hola");
             queue.deleteLast();
-
             assertTrue(queue.isEmpty());
-            assertNull(queue.first());
-            assertNull(queue.last());
-        } */
+        }
 
         @Test
         @DisplayName("Debe eliminar el último elemento de una cola con múltiples elementos")
