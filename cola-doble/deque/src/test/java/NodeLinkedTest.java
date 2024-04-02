@@ -19,6 +19,7 @@ public class NodeLinkedTest  {
         String obtainedValue = node.getItem();
         assertEquals(expectedValue, obtainedValue);                   
         }
+
         @Test
         @DisplayName("Tests getItem() for a null list") 
         void testGetNullList(){
@@ -33,8 +34,7 @@ public class NodeLinkedTest  {
         @Test
         @DisplayName("Test for isFirstNode that should return true") 
         void testisFirstNodeTrue(){
-        LinkedNode<String> node = new LinkedNode<>("first", null, null);
-        LinkedNode<String> nextNode = new LinkedNode<>("last", node, null);
+        LinkedNode<String> node = new LinkedNode<>("first", null, null);        
         boolean obtainedValue = node.isFirstNode();
         assertTrue(obtainedValue);
         }
@@ -57,8 +57,7 @@ public class NodeLinkedTest  {
         @DisplayName("Test for isLastNode that should return false") 
         void testisLastNodeFalse(){
         LinkedNode<String> node1 = new LinkedNode<>("first", null, null);        
-        LinkedNode<String> node2 = new LinkedNode<>("second", null, node1);        
-        LinkedNode<String> node3 = new LinkedNode<>("third", node1, null);        
+        LinkedNode<String> node2 = new LinkedNode<>("second", null, node1);                        
         boolean obtainedValue = node2.isLastNode();  
         assertFalse(obtainedValue);
         }
@@ -66,17 +65,14 @@ public class NodeLinkedTest  {
         @DisplayName("Test for isTerminalNode that should return false") 
         void testNotTerminalNodeFalse(){
             LinkedNode<String> node1 = new LinkedNode<>("first", null, null);        
-            LinkedNode<String> node2 = new LinkedNode<>("second", node1, null);        
-            LinkedNode<String> node3 = new LinkedNode<>("third", node2, null);     
+            LinkedNode<String> node2 = new LinkedNode<>("second", node1, null);                        
             boolean obtainedValue = node2.isNotATerminalNode();                      
             assertFalse(obtainedValue);
         }
         @Test
         @DisplayName("Test for isTerminalNode that should return false") 
         void testNotTerminalNodeFalse2(){
-            LinkedNode<String> node1 = new LinkedNode<>("first", null, null);        
-            LinkedNode<String> node2 = new LinkedNode<>("second", node1, null);        
-            LinkedNode<String> node3 = new LinkedNode<>("third", node2, null);     
+            LinkedNode<String> node1 = new LinkedNode<>("first", null, null);                                           
             boolean obtainedValue = node1.isNotATerminalNode();      
             assertFalse(obtainedValue);
         }
@@ -88,7 +84,6 @@ public class NodeLinkedTest  {
             LinkedNode<String> node3 = new LinkedNode<>("third", node2, node1);    
             boolean obtainedValue = node3.isNotATerminalNode();      
             assertTrue(obtainedValue);
-        }
-        
+        }        
     }
 }

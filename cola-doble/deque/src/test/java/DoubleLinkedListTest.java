@@ -10,92 +10,125 @@ import java.util.Comparator;
 public class DoubleLinkedListTest {
 
     @Nested
-    @DisplayName("Tests for prepend() method")
+    @DisplayName("Test para el método prepend()")
     class PrependTests {
-
+        
         @Test
-        @DisplayName("Should add an element to the beginning of an empty queue")
-        void shouldAddElementToEmptyQueue() {
+        @DisplayName("Debe agregar un elemento al inicio de la cola vacía")
+        void testAddElementToEmptyQueue() {
             DoubleLinkedList<String> queue = new DoubleLinkedList<>();
-            String elementToAdd = "Hello";
+            queue.prepend("Hola");
 
-            queue.prepend(elementToAdd);
+            int expectedSize = 1;
+            int obtainedSize = queue.size();
+            assertEquals(expectedSize, obtainedSize);
 
-            assertEquals(1, queue.size());
-            assertEquals(elementToAdd, queue.first());
-            assertEquals(elementToAdd, queue.last());
+            String expectedValue = "Hola";
+            String obtainedValue1 = queue.first();
+            String obtainedValue2 = queue.last();
+            assertEquals(expectedValue, obtainedValue1);
+            assertEquals(expectedValue, obtainedValue2);
         }
 
         @Test
-        @DisplayName("Should add an element to the beginning of a non-empty queue")
-        void shouldAddElementToNonEmptyQueue() {
+        @DisplayName("Debe agregar un elemento al inicio de la cola no vacía")
+        void testAddElementToNonEmptyQueue() {
             DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
-            queue.append(2); // The queue already has one element before the test
-            int elementToAdd = 1;
+            queue.prepend(3);
+            queue.prepend(2);
+            queue.prepend(1);
 
-            queue.prepend(elementToAdd);
+            int expectedSize = 3;
+            int obtainedSize = queue.size();
+            assertEquals(expectedSize, obtainedSize);
 
-            assertEquals(2, queue.size());
-            assertEquals(elementToAdd, queue.first());
+            int obtainedValue1 = queue.first();
+            int expectedValue1 = 1;
+            int obtainedValue2 = queue.last();
+            int expectedValue2 = 3;
+            assertEquals(expectedValue1, obtainedValue1);
+            assertEquals(expectedValue2, obtainedValue2);
         }
+      
     }
 
     @Nested
-    @DisplayName("Tests for append() method")
+    @DisplayName("Tests para el método append()")
     class AppendTests {
         @Test
-        @DisplayName("Should add an element to the end of an empty queue")
-        void shouldAddElementToEmptyQueue() {
+        @DisplayName("Debe agregar un elemento al final de la cola vacía")
+        void testAddElementToEmptyQueue() {
             DoubleLinkedList<String> queue = new DoubleLinkedList<>();
-            String elementToAdd = "Hello";
+            queue.append("Hola");
 
-            queue.append(elementToAdd);
+            int expectedSize = 1;
+            int obtainedSize = queue.size();
+            assertEquals(expectedSize, obtainedSize);
 
-            assertEquals(1, queue.size());
-            assertEquals(elementToAdd, queue.first());
-            assertEquals(elementToAdd, queue.last());
+            String expectedValue = "Hola";
+            String obtainedValue1 = queue.first();
+            String obtainedValue2 = queue.last();
+            assertEquals(expectedValue, obtainedValue1);
+            assertEquals(expectedValue, obtainedValue2);
         }
 
         @Test
-        @DisplayName("Should add an element to the end of a non-empty queue")
-        void shouldAddElementToNonEmptyQueue() {
+        @DisplayName("Debe agregar un elemento al final de la cola no vacía")
+        void testAddElementToNonEmptyQueue() {
             DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
-            queue.append(1); // The queue already has one element before the test
-            int elementToAdd = 2;
+            queue.append(1);
+            queue.append(2);
+            queue.append(3);
 
-            queue.append(elementToAdd);
+            int expectedSize = 3;
+            int obtainedSize = queue.size();
+            assertEquals(expectedSize, obtainedSize);
 
-            assertEquals(2, queue.size());
-            assertEquals(elementToAdd, queue.last());
+            int obtainedValue1 = queue.first();
+            int expectedValue1 = 1;
+            int obtainedValue2 = queue.last();
+            int expectedValue2 = 3;
+            assertEquals(expectedValue1, obtainedValue1);
+            assertEquals(expectedValue2, obtainedValue2);
         }
     }
 
     @Nested
-    @DisplayName("Tests for deleteFirst() method")
+    @DisplayName("Tests para el método deleteFirst()")
     class DeleteFirstTests {
         @Test
-        @DisplayName("Should throw exception if the queue is empty")
-        void shouldThrowExceptionForEmptyQueue() {
+        @DisplayName("Debe lanzar excepción si la cola está vacía")
+        void testThrowExceptionForEmptyQueue() {
             DoubleLinkedList<Object> queue = new DoubleLinkedList<>();
 
             assertThrows(DoubleLinkedQueueException.class, queue::deleteFirst);
         }
 
         @Test
-        @DisplayName("Should delete the first element of a single-element queue")
-        void shouldDeleteElementFromSingleElementQueue() {
+        @DisplayName("Debe eliminar el primer elemento de una cola de un solo elemento")
+        void testDeleteElementFromSingleElementQueue() {
             DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
-            queue.append(1);
-
+            queue.append(1);            
+            int expectedSize1 = 1;
+            int obtainedSize1 = queue.size();
+            assertEquals(expectedSize1, obtainedSize1);
+            
             queue.deleteFirst();
 
-            assertEquals(0, queue.size());
-            assertTrue(queue.isEmpty());
-        }
+            int expectedSize2 = 0;
+            int obtainedSize2 = queue.size();
+            assertEquals(expectedSize2, obtainedSize2);
+            
+            boolean obtainedValueEmpty = queue.size()==0;
+            assertTrue(obtainedValueEmpty);
+        } 
+
+        
+
 
         @Test
-        @DisplayName("Should delete the first element of a multi-element queue")
-        void shouldDeleteFirstElementFromMultiElementQueue() {
+        @DisplayName("Debe eliminar el primer elemento de una cola con múltiples elementos")
+        void testDeleteFirstElementFromMultiElementQueue() {
             DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
             queue.append(1);
             queue.append(2);
@@ -103,38 +136,53 @@ public class DoubleLinkedListTest {
 
             queue.deleteFirst();
 
-            assertEquals(2, queue.size());
-            assertEquals(2, queue.first());
-            assertEquals(3, queue.last());
+            int expectedSize = 2;
+            int obtainedSize = queue.size();
+            assertEquals(expectedSize, obtainedSize);
+            
+            int obtainedValue1 = queue.first();
+            int expectedValue1 = 2;
+            int obtainedValue2 = queue.last();
+            int expectedValue2 = 3;
+            assertEquals(expectedValue1, obtainedValue1);
+            assertEquals(expectedValue2, obtainedValue2);
         }
     }
 
     @Nested
-    @DisplayName("Tests for deleteLast() method")
+    @DisplayName("Tests para el método deleteLast()")
     class DeleteLastTests {
         @Test
-        @DisplayName("Should throw exception if the queue is empty")
-        void shouldThrowExceptionForEmptyQueue() {
+        @DisplayName("Debe lanzar excepción si la cola está vacía")
+        void testThrowExceptionForEmptyQueue() {
             DoubleLinkedList<Object> queue = new DoubleLinkedList<>();
 
             assertThrows(DoubleLinkedQueueException.class, queue::deleteLast);
         }
 
-        @Test
-        @DisplayName("Should delete the last element of a single-element queue")
-        void shouldDeleteElementFromSingleElementQueue() {
+         @Test
+        @DisplayName("Debe eliminar el último elemento de una cola de un solo elemento")
+        void testDeleteElementFromSingleElementQueue() {
             DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
-            queue.append(1);
-
+            queue.append(1);            
+            
+            int expectedSize1 = 1;
+            int obtainedSize1 = queue.size();
+            assertEquals(expectedSize1, obtainedSize1);
+            
             queue.deleteLast();
+            
+            int expectedSize2 = 0;
+            int obtainedSize2 = queue.size();
+            assertEquals(expectedSize2, obtainedSize2);
 
-            assertEquals(0, queue.size());
-            assertTrue(queue.isEmpty());
-        }
+            boolean obtainedValueEmpty = queue.size()==0;
+            assertTrue(obtainedValueEmpty);
+        } 
 
         @Test
-        @DisplayName("Should delete the last element of a multi-element queue")
-        void shouldDeleteLastElementFromMultiElementQueue() {
+        @DisplayName("Debe eliminar el último elemento de una cola con múltiples elementos")
+        void testDeleteLastElementFromMultiElementQueue() {
             DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
             queue.append(1);
             queue.append(2);
@@ -142,192 +190,284 @@ public class DoubleLinkedListTest {
 
             queue.deleteLast();
 
-            assertEquals(2, queue.size());
-            assertEquals(1, queue.first());
-            assertEquals(2, queue.last());
+            int expectedSize = 2;
+            int obtainedSize = queue.size();
+            assertEquals(expectedSize, obtainedSize);
+            
+            int obtainedValue1 = queue.first();
+            int expectedValue1 = 1;
+            int obtainedValue2 = queue.last();
+            int expectedValue2 = 2;
+            assertEquals(expectedValue1, obtainedValue1);
+            assertEquals(expectedValue2, obtainedValue2);
         }
     }
 
     @Nested
-    @DisplayName("Tests for first() method")
+    @DisplayName("Tests para el método first()")
     class FirstTests {
         @Test
-        @DisplayName("Should throw exception if the queue is empty")
-        void shouldThrowExceptionForEmptyQueue() {
+        @DisplayName("Debe lanzar excepción si la cola está vacía")
+        void testThrowExceptionForEmptyQueue() {
             DoubleLinkedList<Object> queue = new DoubleLinkedList<>();
 
             assertThrows(DoubleLinkedQueueException.class, queue::first);
         }
 
         @Test
-        @DisplayName("Should return the first element of the queue")
-        void shouldReturnFirstElement() {
+        @DisplayName("Debe devolver el primer elemento de la cola")
+        void testReturnFirstElement() {
             DoubleLinkedList<String> queue = new DoubleLinkedList<>();
-            queue.append("Hello");
-            queue.append("World");
-
-            assertEquals("Hello", queue.first());
+            queue.append("Hola");
+            queue.append("Mundo");
+            
+            String expectedValue = "Hola";
+            String obtainedValue = queue.first();
+            assertEquals(expectedValue, obtainedValue);
         }
     }
 
     @Nested
-    @DisplayName("Tests for last() method")
+    @DisplayName("Tests para el método last()")
     class LastTests {
         @Test
-        @DisplayName("Should throw exception if the queue is empty")
-        void shouldThrowExceptionForEmptyQueue() {
+        @DisplayName("Debe lanzar excepción si la cola está vacía")
+        void testThrowExceptionForEmptyQueue() {
             DoubleLinkedList<Object> queue = new DoubleLinkedList<>();
 
             assertThrows(DoubleLinkedQueueException.class, queue::last);
         }
 
         @Test
-        @DisplayName("Should return the last element of the queue")
-        void shouldReturnLastElement() {
+        @DisplayName("Debe devolver el último elemento de la cola")
+        void testReturnLastElement() {
             DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
             queue.append(1);
             queue.append(2);
             queue.append(3);
 
-            assertEquals(3, queue.last().intValue());
+            int expectedValue = 3;
+            int obtainedValue = queue.last();
+            assertEquals(expectedValue, obtainedValue);
         }
     }
 
     @Nested
-    @DisplayName("Tests for size() method")
+    @DisplayName("Tests para el método size()")
     class SizeTests {
         @Test
-        @DisplayName("Should return 0 for an empty queue")
-        void shouldReturnZeroForEmptyQueue() {
+        @DisplayName("Debe devolver 0 para una cola vacía")
+        void testReturnZeroForEmptyQueue() {
             DoubleLinkedList<Object> queue = new DoubleLinkedList<>();
-
-            assertEquals(0, queue.size());
+            
+            int expectedValue = 0;
+            int obtainedValue = queue.size();
+            assertEquals(expectedValue, obtainedValue);
         }
 
         @Test
-        @DisplayName("Should return the correct size for a non-empty queue")
-        void shouldReturnCorrectSizeForNonEmptyQueue() {
+        @DisplayName("Debe devolver el tamaño correcto para una cola no vacía")
+        void testReturnCorrectSizeForNonEmptyQueue() {
             DoubleLinkedList<Double> queue = new DoubleLinkedList<>();
             queue.append(1.0);
             queue.append(2.0);
             queue.prepend(3.0);
 
-            assertEquals(3, queue.size());
+            int expectedValue = 3;
+            int obtainedValue = queue.size();
+            assertEquals(expectedValue, obtainedValue);
         }
     }
 
     @Nested
-    @DisplayName("Tests for reverseElements() method")
-    class ReverseElementsTests {
-        @Test
-        @DisplayName("Should do nothing if the queue is empty")
-        void shouldDoNothingForEmptyQueue() {
+    @DisplayName("Tests para el método get")
+    class GetTests{
+        @Test 
+        @DisplayName("Debe lanzar una excepcion (indice negativo)")
+        void testThrowsException(){
             DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
-            queue.reverseElements();
-
-            assertTrue(queue.isEmpty());
-        }
-
-        @Test
-        @DisplayName("Should reverse the order of elements in the queue")
-        void shouldReverseElementOrder() {
-            DoubleLinkedList<String> queue = new DoubleLinkedList<>();
-            queue.append("A");
-            queue.append("B");
-            queue.append("C");
-
-            queue.reverseElements();
-
-            assertEquals("C", queue.first());
-            assertEquals("A", queue.last());
-        }
-    }
-
-    @Nested
-    @DisplayName("Tests for removeDuplicates() method")
-    class RemoveDuplicatesTests {
-        @Test
-        @DisplayName("Should return an empty queue if the original queue is empty")
-        void shouldReturnEmptyQueueForEmptyOriginalQueue() {
-            DoubleLinkedList<Object> queue = new DoubleLinkedList<>();
-            DoubleLinkedList<Object> newQueue = queue.removeDuplicates();
-            assertTrue(newQueue.isEmpty());
-        }
-
-        @Test
-        @DisplayName("Should return a queue with the same size if no duplicates")
-        void testRemoveDuplicatesOriginal() {
-            DoubleLinkedList<Object> queue = new DoubleLinkedList<>();
             queue.append(1);
             queue.append(2);
-            DoubleLinkedList<Object> newQueue = queue.removeDuplicates();
-            assertEquals(queue.size(), newQueue.size());
+            queue.append(3);
+            assertThrows(IndexOutOfBoundsException.class, ()->queue.get(-1));            
         }
+        @Test 
+        @DisplayName("Debe lanzar una excepcion (indice inexistente)")
+        void testThrowsException2(){
+            DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
+            queue.append(1);
+            queue.append(2);
+            queue.append(3);
+            assertThrows(IndexOutOfBoundsException.class, ()->queue.get(5));            
+        }
+        @Test 
+        @DisplayName("Debe devolver el elemento correcto empleando el metodo get")
+        void testReturnCorrectElement(){
+            DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
+            queue.append(1);
+            queue.append(2);
+            queue.append(3);
 
-        @Test
-        @DisplayName("Should return a smaller queue if there were duplicates")
-        void testRemoveDuplicatesNotOriginal() {
-            DoubleLinkedList<Object> queue = new DoubleLinkedList<>();
-            queue.append(1);
-            queue.append(1);
-            DoubleLinkedList<Object> newQueue = queue.removeDuplicates();
-            assertNotEquals(queue.size(), newQueue.size());
+            int expectedValue = 2;
+            int obtainedValue = queue.get(1);
+            assertEquals(expectedValue, obtainedValue);
         }
     }
 
     @Nested
-    @DisplayName("New operations tests")
-    class NewOperationsTests {
-    
+    @DisplayName("Tests para el método contains")
+    class ContainsTests{
         @Test
-        @DisplayName("Should accurately return an element at a specific index")
-        void shouldReturnElementAtIndex() {
-            DoubleLinkedList<String> list = new DoubleLinkedList<>();
-            list.append("First");
-            list.append("Second");
-            list.append("Third");
-    
-            assertEquals("Second", list.get(1));
+        @DisplayName("Tests para el método contains de un elemento que sí existe en la lista")
+        void testContainsResultIsTrue(){
+            DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
+            queue.append(1);
+            queue.append(2);
+            queue.append(3);
+
+            boolean obtainedResult = queue.contains(2);
+            assertTrue(obtainedResult);
         }
-    
         @Test
-        @DisplayName("Should correctly identify if a value is contained")
-        void shouldIdentifyContainedValue() {
-            DoubleLinkedList<String> list = new DoubleLinkedList<>();
-            list.append("Hello");
-            list.append("World");
-    
-            assertTrue(list.contains("Hello"));
-            assertFalse(list.contains("Test"));
-        }
-    
-        @Test
-        @DisplayName("Should remove a specific value correctly")
-        void shouldRemoveValue() {
-            DoubleLinkedList<String> list = new DoubleLinkedList<>();
-            list.append("First");
-            list.append("Second");
-            list.append("Third");
-            list.remove("Second");
-    
-            assertEquals(2, list.size());
-            assertFalse(list.contains("Second"));
-        }
-    
-        @Test
-        @DisplayName("Should sort the list according to the provided comparator")
-        void shouldSortList() {
-            DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
-            list.append(3);
-            list.append(1);
-            list.append(2);
-    
-            list.sort(Comparator.naturalOrder());
-    
-            assertEquals(Integer.valueOf(1), list.get(0));
-            assertEquals(Integer.valueOf(2), list.get(1));
-            assertEquals(Integer.valueOf(3), list.get(2));
+        @DisplayName("Tests para el método contains de un elemento que no existe en la lista")
+        void testContainsResultIsFalse(){
+            DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
+            queue.append(1);
+            queue.append(2);
+            queue.append(3);
+
+            boolean obtainedResult = queue.contains(4);
+            assertFalse(obtainedResult);
         }
     }
 
+    @Nested
+    @DisplayName("Tests para el método remove")
+    class RemoveTests{
+        @Test
+        @DisplayName("Tests para el método remove de un elemento que no existe en la lista de un elemento")
+        void testRemoveExistingElementUni(){
+            DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
+            queue.append(1);            
+
+            int sizeBeforeRemove = queue.size();
+            queue.remove(4);
+            int sizeAfterRemove = queue.size();
+
+            assertEquals(sizeAfterRemove, sizeBeforeRemove);
+        }
+        @Test
+        @DisplayName("Tests para el método remove de un elemento que no existe en la lista de un elemento")
+        void testRemoveNonExistingElementUni(){
+            DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
+            queue.append(1);            
+
+            int sizeBeforeRemove = queue.size();
+            queue.remove(1);
+            int sizeAfterRemove = queue.size();
+
+            assertNotEquals(sizeAfterRemove, sizeBeforeRemove);
+        }
+        @Test
+        @DisplayName("Tests para el método remove de un elemento que no existe en la lista múltiple")
+        void testRemoveNonExistingElementMulti(){
+            DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
+            queue.append(1);
+            queue.append(2);
+            queue.append(3);
+
+            int sizeBeforeRemove = queue.size();
+            queue.remove(4);
+            int sizeAfterRemove = queue.size();
+
+            assertEquals(sizeAfterRemove, sizeBeforeRemove);
+        }
+        @Test
+        @DisplayName("Tests para el método remove de un elemento que sí existe en la lista múltiple")
+        void testRemoveExistingElementMulti(){
+            DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
+            queue.append(1);
+            queue.append(2);
+            queue.append(3);
+
+            int sizeBeforeRemove = queue.size();
+            queue.remove(2);
+            int sizeAfterRemove = queue.size();
+
+            assertNotEquals(sizeAfterRemove, sizeBeforeRemove);
+        }
+        @Test
+        @DisplayName("Tests para el método remove de un elemento que sí existe en la lista múltiple")
+        void testRemoveExistingLastElementMulti(){
+            DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
+            queue.append(1);
+            queue.append(2);
+            queue.append(3);
+
+            int sizeBeforeRemove = queue.size();
+            queue.remove(3);
+            int sizeAfterRemove = queue.size();
+
+            assertNotEquals(sizeAfterRemove, sizeBeforeRemove);
+        }
+    }
+
+    @Nested 
+    @DisplayName("Tests para el metodo sort")
+    class SortTests{
+        @Test
+        @DisplayName("Tests para el metodo sort con unico elemento en la lista")
+        void testSortSingleElementList(){
+            DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
+            queue.append(1);
+                        
+            queue.sort(Comparator.naturalOrder());
+
+            int obtainedValue = queue.get(0);
+            int expectedValue = 1;
+            
+            assertEquals(expectedValue, obtainedValue);
+            
+        }
+        @Test
+        @DisplayName("Tests para el metodo sort con varios elementos en la lista que ya esta ordenada")
+        void testSortMultiElementListTrue(){
+            DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
+            queue.append(1);
+            queue.append(2);
+            queue.append(3);
+            
+            queue.sort(Comparator.naturalOrder());
+
+            int obtainedValue1 = queue.get(0);
+            int expectedValue1 = 1;
+            int obtainedValue2 = queue.get(1);
+            int expectedValue2 = 2;
+            int obtainedValue3 = queue.get(2);
+            int expectedValue3 = 3;
+            assertEquals(expectedValue1, obtainedValue1);
+            assertEquals(expectedValue2, obtainedValue2);
+            assertEquals(expectedValue3, obtainedValue3);
+        }
+        @Test
+        @DisplayName("Tests para el metodo sort con varios elementos en la lista que no esta ordenada")
+        void testSortMultiElementListFalse(){
+            DoubleLinkedList<Integer> queue = new DoubleLinkedList<>();
+            queue.append(3);
+            queue.append(2);
+            queue.append(1);
+                        
+            queue.sort(Comparator.naturalOrder());
+
+            int obtainedValue1 = queue.get(0);
+            int expectedValue1 = 1;
+            int obtainedValue2 = queue.get(1);
+            int expectedValue2 = 2;
+            int obtainedValue3 = queue.get(2);
+            int expectedValue3 = 3;
+            assertEquals(expectedValue1, obtainedValue1);
+            assertEquals(expectedValue2, obtainedValue2);
+            assertEquals(expectedValue3, obtainedValue3);
+        }
+    }
 }

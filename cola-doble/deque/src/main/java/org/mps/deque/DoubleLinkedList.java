@@ -16,7 +16,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
     @Override
     public void prepend(T value) {
         LinkedNode<T> newNode = new LinkedNode<>(value, null, first);
-        if (isEmpty()) {
+        if (size==0) {
             last = newNode;
         } else {
             first.setPrevious(newNode);
@@ -28,7 +28,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
     @Override
     public void append(T value) {
         LinkedNode<T> newNode = new LinkedNode<>(value, last, null);
-        if (isEmpty()) {
+        if (size==0) {
             first = newNode;
         } else {
             last.setNext(newNode);
@@ -39,7 +39,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public void deleteFirst() {
-        if (isEmpty()) {
+        if (size==0) {
             throw new DoubleLinkedQueueException("Cannot delete from an empty queue");
         }
         if (first == last) {
@@ -54,7 +54,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public void deleteLast() {
-        if (isEmpty()) {
+        if (size==0) {
             throw new DoubleLinkedQueueException("Cannot delete from an empty queue");
         }
         if (first == last) {
@@ -69,7 +69,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public T first() {
-        if (isEmpty()) {
+        if (size==0) {
             throw new DoubleLinkedQueueException("Cannot retrieve from an empty queue");
         }
         return first.getItem();
@@ -77,7 +77,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public T last() {
-        if (isEmpty()) {
+        if (size==0) {
             throw new DoubleLinkedQueueException("Cannot retrieve from an empty queue");
         }
         return last.getItem();
@@ -86,44 +86,6 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
     @Override
     public int size() {
         return size;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
-    }
-    
-    public void reverseElements() {
-        if (isEmpty()) {
-            return;
-        }
-
-        LinkedNode<T> currentNode = first;
-        LinkedNode<T> temp = null;
-
-        while (currentNode != null) {
-            temp = currentNode.getPrevious();
-            currentNode.setPrevious(currentNode.getNext());
-            currentNode.setNext(temp);
-            currentNode = currentNode.getPrevious();
-        }
-
-        temp = first;
-        first = last;
-        last = temp;
-    }
-    
-    public DoubleLinkedList<T> removeDuplicates() {
-        DoubleLinkedList<T> newQueue = new DoubleLinkedList<>();
-        LinkedNode<T> currentNode = first;
-
-        while (currentNode != null) {
-            if (!newQueue.contains(currentNode.getItem())) {
-                newQueue.append(currentNode.getItem());
-            }
-            currentNode = currentNode.getNext();
-        }
-
-        return newQueue;
     }
 
     @Override
@@ -140,13 +102,15 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public boolean contains(T value) {
-        LinkedNode<T> current = first;
-        while (current != null) {
-            if (current.getItem().equals(value)) {
+        LinkedNode<T> currentNode = first;
+
+        while (currentNode != null) {
+            if (currentNode.getItem().equals(value)) {
                 return true;
             }
-            current = current.getNext();
+            currentNode = currentNode.getNext();
         }
+
         return false;
     }
 
