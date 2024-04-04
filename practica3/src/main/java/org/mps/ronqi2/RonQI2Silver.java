@@ -27,7 +27,7 @@ public class RonQI2Silver extends RonQI2{
         if(lecturasP.size()>numLecturas){
             lecturasP.remove(0); 
         }
-        lecturasS.add(disp.leerSensorPresion());
+        lecturasS.add(disp.leerSensorSonido()); // hay una errata en el código original, ponia leerSensorPresion
         if(lecturasS.size()>numLecturas){
             lecturasS.remove(0); 
         }
@@ -42,20 +42,20 @@ public class RonQI2Silver extends RonQI2{
     @Override
     public boolean evaluarApneaSuenyo() {
         boolean resultado;
-        Double avgP = lecturasP.stream()
+        double avgP = lecturasP.stream()
                 .mapToDouble(d -> d)
                 .average()
                 .orElse(0.0);
-        Double avgS = lecturasS.stream()
+        double avgS = lecturasS.stream()
                 .mapToDouble(d -> d)
                 .average()
                 .orElse(0.0);
-        
-        if (avgP>=thresholdP && avgS > thresholdS){
-            resultado = false;
-        }   
-        else{
+
+        if (avgP>=thresholdP && avgS >= thresholdS){
             resultado = true;
+        }
+        else{
+            resultado = false;
         }
         return resultado;
     }
