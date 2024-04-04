@@ -1,16 +1,68 @@
 package org.mps.ronqi2;
 
 
-public class ronQI2Silvertest {
+import org.junit.jupiter.api.Test;
+import org.mps.dispositivo.DispositivoSilver;
 
-    
-    /*
-     * Analiza con los caminos base qué pruebas se han de realizar para comprobar que al inicializar funciona como debe ser. 
-     * El funcionamiento correcto es que si es posible conectar ambos sensores y configurarlos, 
-     * el método inicializar de ronQI2 o sus subclases, 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+public class ronQI2Silvertest{/*
+     * Analiza con los caminos base qué pruebas se han de realizar para comprobar que al inicializar funciona como debe ser.
+     * El funcionamiento correcto es que si es posible conectar ambos sensores y configurarlos,
+     * el método inicializar de ronQI2 o sus subclases,
      * debería devolver true. En cualquier otro caso false. Se deja programado un ejemplo.
      */
-    
+
+    @Test
+    void testInicializarConExito() {
+        RonQI2Silver ronq = new RonQI2Silver();
+
+        DispositivoSilver mockDisp = mock(DispositivoSilver.class);
+        when(mockDisp.conectarSensorPresion()).thenReturn(true);
+        when(mockDisp.conectarSensorSonido()).thenReturn(true);
+        when(mockDisp.configurarSensorPresion()).thenReturn(true);
+        when(mockDisp.configurarSensorSonido()).thenReturn(true);
+        ronq.disp = mockDisp;
+
+        boolean obtainedValue = ronq.inicializar();
+
+        assertTrue(obtainedValue);
+    }
+
+    @Test
+    void inicializar_unSensorNoConectado() {
+        RonQI2Silver ronq = new RonQI2Silver();
+
+        DispositivoSilver mockDisp = mock(DispositivoSilver.class);
+        when(mockDisp.conectarSensorPresion()).thenReturn(true);
+        when(mockDisp.conectarSensorSonido()).thenReturn(false);
+        when(mockDisp.configurarSensorPresion()).thenReturn(true);
+        when(mockDisp.configurarSensorSonido()).thenReturn(true);
+        ronq.disp = mockDisp;
+
+        boolean obtainedValue = ronq.inicializar();
+
+        assertFalse(obtainedValue);
+    }
+
+    @Test
+    void inicializar_unSensorNoConfigurado() {
+        RonQI2Silver ronq = new RonQI2Silver();
+
+        DispositivoSilver mockDisp = mock(DispositivoSilver.class);
+        when(mockDisp.conectarSensorPresion()).thenReturn(true);
+        when(mockDisp.conectarSensorSonido()).thenReturn(true);
+        when(mockDisp.configurarSensorPresion()).thenReturn(false);
+        when(mockDisp.configurarSensorSonido()).thenReturn(true);
+        ronq.disp = mockDisp;
+
+        boolean obtainedValue = ronq.inicializar();
+
+        assertFalse(obtainedValue);
+    }
+
+
     /*
      * Un inicializar debe configurar ambos sensores, comprueba que cuando se inicializa de forma correcta (el conectar es true), 
      * se llama una sola vez al configurar de cada sensor.
